@@ -12,7 +12,7 @@ const ThirdData = () => {
   });
 
   useEffect(() => {
-    fetch('/')
+    fetch('/data.php')
       .then(response => response.json())
       .then(data => {
         if (!data.error) {
