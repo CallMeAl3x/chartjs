@@ -10,7 +10,8 @@
 }
 
 .trapezoid {
-  animation: trapezecarré 5s forwards; /* Durée de 2 secondes */
+  animation: trapezecarré 5s forwards;
+  /* Durée de 2 secondes */
 }
 
 @keyframes trapezecarré {
@@ -24,6 +25,7 @@
     left: 50.4%;
     opacity: 0;
   }
+
   100% {
     border-bottom: none;
     border-left: none;
@@ -70,7 +72,7 @@
 }
 
 /* grande image */
-#imgg > img {
+#imgg>img {
   width: 100%;
 }
 
@@ -81,6 +83,7 @@
   background: url("/tracker-rouge.svg") no-repeat;
   background-size: contain;
 }
+
 #imgg a:hover {
   background-image: url("/tracker-vert.svg");
 }
@@ -129,43 +132,52 @@
   top: 28%;
   left: 21%;
 }
+
 /* ... */
 #imgg a.FR-COR {
   top: 84%;
   left: 93%;
 }
+
 #imgg a.FR-GES {
   top: 22%;
   left: 72%;
 }
+
 #imgg a.FR-HDF {
   top: 10%;
   left: 54%;
 }
+
 #imgg a.FR-IDF {
   top: 22%;
   left: 52%;
 }
+
 /* ... */
 #imgg a.FR-NOR {
   top: 20%;
   left: 37%;
 }
+
 /* ... */
 
 /* noms des REGIONS */
 #imgg a span {
   position: absolute;
-  display: none; /* on masque */
+  display: none;
+  /* on masque */
   top: 105%;
   width: 200px;
   left: 50%;
-  margin-left: -100px; /* centrage horizontal */
+  margin-left: -100px;
+  /* centrage horizontal */
   text-align: center;
 }
 
 #imgg a:hover span {
-  display: block; /* on affiche */
+  display: block;
+  /* on affiche */
 }
 
 #imgg a,

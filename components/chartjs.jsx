@@ -43,7 +43,7 @@ const ChartJS = () => {
       <Navigation />
       <div
         onWheel={handleWheel}
-        className="lg:absolute lg:-translate-x-1/2 lg:-translate-y-1/2 top-[50.5%] left-[50.4%] lg:h-[54vh] lg:w-[66vw] text-2xl">
+        className="lg:absolute lg:-translate-x-1/2 lg:-translate-y-1/2 top-[50.5%] left-[50.4%] lg:h-[54vh] lg:min-w-[66vw] text-2xl">
         {currentNumber === 1 && <FirstData />}
 
         {currentNumber === 2 && <SecondData />}

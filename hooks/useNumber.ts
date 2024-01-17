@@ -7,6 +7,8 @@ type NumberStore = {
   setHasAnimationPlayed: (played: boolean) => void;
   hasSecondAnimationPlayed: boolean;
   setHasSecondAnimationPlayed: (played: boolean) => void;
+  hasThirdAnimationPlayed: boolean;
+  setHasThirdAnimationPlayed: (played: boolean) => void;
 };
 
 export const useNumberStore = create<NumberStore>((set, get) => ({
@@ -20,4 +22,6 @@ export const useNumberStore = create<NumberStore>((set, get) => ({
   setHasAnimationPlayed: (played) => set({ hasAnimationPlayed: played }),
   hasSecondAnimationPlayed: false,
   setHasSecondAnimationPlayed: (played) => set({ hasSecondAnimationPlayed: played }),
+  hasThirdAnimationPlayed: false,
+  setHasThirdAnimationPlayed: (played) => set({ hasThirdAnimationPlayed: played }),
 }));

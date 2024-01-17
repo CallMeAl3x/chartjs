@@ -20,9 +20,8 @@ ChartJS.register(
 );
 import Video from "./video";
 import { useNumberStore } from "../hooks/useNumber";
-import regionMapping from "./utils/regionMapping";
-import { fetchPopulationForRegion } from "./apis/fetchDataForRegion";
-import { fetchDataCinemaForRegion } from "./apis/fetchCinemaData";
+import { PoppulationParRegion } from "./apis/PoppulationParRegion.js";
+import { fetchDataCinemaForRegion } from "./apis/fetchDataCinemaForRegion.js";
 
 const SecondData = () => {
   const { hasAnimationPlayed, setHasAnimationPlayed } = useNumberStore();
@@ -55,10 +54,6 @@ const SecondData = () => {
     "ILE-DE-FRANCE",
   ]);
 
-  const normalizeRegionNameForPopulationAPI = (regionName) => {
-    return regionMapping[regionName] || regionName;
-  };
-
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [],
@@ -67,52 +62,48 @@ const SecondData = () => {
   useEffect(() => {
     const getChartData = async () => {
       try {
-        // Récupérer la moyenne des écrans pour chaque région sélectionnée
-        const screenAverages = await Promise.all(
+        const seatTotals = await Promise.all(
           selectedRegions.map((region) => fetchDataCinemaForRegion(region))
         );
 
-        let chartData = { labels: selectedRegions, datasets: [] };
+        const populations = await Promise.all(
+          selectedRegions.map((region) => PoppulationParRegion(region))
+        );
 
+        let datasets;
         if (calculateAverage) {
-          const populations = await Promise.all(
-            selectedRegions.map((region) =>
-              fetchPopulationForRegion(
-                normalizeRegionNameForPopulationAPI(region)
-              )
-            )
-          );
-
-          // Calculer la moyenne d'écrans par personne pour chaque région
-          const averagesPerPerson = screenAverages.map((avg, index) => {
+          const seatsPerRegion = seatTotals.map((totalseats, index) => {
             const population = populations[index];
-            // Convertissez le nombre moyen d'écrans par personne en nombre d'écrans pour 100,000 habitants.
-            // Utilisez Math.max pour s'assurer que la population n'est jamais 0, ce qui éviterait une division par zéro.
-            return (avg / Math.max(population, 1)) * 100000;
+            return population > 0 ? totalseats / population : 0;
           });
 
-          // Mettre à jour les données du graphique
-          chartData.datasets.push({
-            label: "Écrans pour 100,000 habitants",
-            data: averagesPerPerson,
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.5)",
-              "rgba(54, 162, 235, 0.5)",
-            ],
-          });
+          datasets = [
+            {
+              label: "Nombre moyen de sièges de cinéma par habitant",
+              data: seatsPerRegion,
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.5)",
+                "rgba(54, 162, 235, 0.5)",
+              ],
+            },
+          ];
         } else {
-          // Utiliser uniquement la moyenne des écrans si calculateAverage n'est pas activé
-          chartData.datasets.push({
-            label: "Moyenne des salles de cinéma",
-            data: screenAverages,
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.5)",
-              "rgba(54, 162, 235, 0.5)",
-            ],
-          });
+          datasets = [
+            {
+              label: "Nombre de sièges de cinéma de la région",
+              data: seatTotals,
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.5)",
+                "rgba(54, 162, 235, 0.5)",
+              ],
+            },
+          ];
         }
 
-        setChartData(chartData);
+        setChartData({
+          labels: selectedRegions,
+          datasets: datasets,
+        });
       } catch (error) {
         console.error(
           "Erreur lors de la mise à jour des données du graphique:",

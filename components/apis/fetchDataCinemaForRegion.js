@@ -5,27 +5,30 @@ export const fetchDataCinemaForRegion = async (region) => {
     const response = await fetch(url);
     const data = await response.json();
 
-    // Affiche la réponse complète de l'API dans la console
-    console.log(`Réponse de l'API pour la région ${region}:`, data);
-
-    // Assurez-vous que 'data.results' est bien un tableau et contient les propriétés attendues
     if (!Array.isArray(data.results)) {
       throw new Error(
         "Les données reçues ne sont pas dans un format de tableau attendu."
       );
     }
 
-    const totalScreens = data.results.reduce((acc, cinema) => {
-      return acc + cinema.ecrans;
-    }, 0);
+    const totalFauteuils = data.results.reduce(
+      (acc, cinema) => acc + cinema.fauteuils,
+      0
+    );
+    const moyenneFauteuils = totalFauteuils / data.results.length;
 
-    const averageScreens = totalScreens / data.results.length;
-    return averageScreens;
+    // Utilisez 'total_count' pour obtenir le nombre total de cinémas dans la région
+    const nombreCinemas = data.total_count;
+
+    // Calculez la moyenne des fauteuils pour l'ensemble de la région
+    const moyenneTotaleFauteuils = moyenneFauteuils * nombreCinemas;
+
+    return moyenneTotaleFauteuils;
   } catch (error) {
     console.error(
       "Erreur lors de la récupération des données de l'API:",
       error
     );
-    return 0; // Retourner 0 ou gérer l'erreur comme approprié pour votre application
+    return 0;
   }
 };
