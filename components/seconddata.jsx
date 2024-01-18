@@ -27,6 +27,7 @@ import Modal2 from "./Modal2.jsx";
 
 const SecondData = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [buttonclicked, setButtonClicked] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -178,15 +179,42 @@ const SecondData = () => {
               <Modal2 isOpen={isModalOpen} onClose={closeModal} />
             </div>
           </div>
-          <div className="">
-            <input
-              type="checkbox"
-              checked={calculateAverage}
-              onChange={(e) => setCalculateAverage(e.target.checked)}
-            />
-            <label>
-              Calculer la moyenne de sièges par personne dans chaque région
-            </label>
+          <div className="flex gap-4">
+            <div className="flex">
+              <input
+                type="checkbox"
+                checked={calculateAverage}
+                id="siegeparpersonne"
+                className="appearance-none"
+                onChange={(e) => setCalculateAverage(e.target.checked)}
+                onClick={() => setButtonClicked(!buttonclicked)}
+              />
+              <label
+                htmlFor="siegeparpersonne"
+                className={`${
+                  !buttonclicked ? "bg-red-500" : "bg-green-500"
+                } p-2 bg-red-500 rounded-xl flex justify-center items-center`}>
+                Sièges par personne
+              </label>
+            </div>
+
+            <div className="flex">
+              <input
+                type="checkbox"
+                id="siegetotal"
+                className="appearance-none"
+                checked={calculateAverage}
+                onChange={(e) => setCalculateAverage(e.target.checked)}
+                onClick={() => setButtonClicked(!buttonclicked)}
+              />
+              <label
+                htmlFor="siegetotal"
+                className={`${
+                  buttonclicked ? "bg-red-500" : "bg-green-500"
+                } p-2 bg-red-500 rounded-xl flex justify-center items-center`}>
+                Sièges au total
+              </label>
+            </div>
           </div>
         </div>
         <div
