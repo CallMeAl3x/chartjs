@@ -13,8 +13,20 @@ import { useEffect, useState } from "react";
 import { useNumberStore } from "../hooks/useNumber";
 import Video from "./video";
 import { fetchDataCinemaProd } from "./apis/fetchDataCinemaProd";
+import { Info } from "lucide-react";
+import Modal3 from "./Modal3";
 
 const ThirdData = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [],
@@ -85,6 +97,14 @@ const ThirdData = () => {
               options={options}
               className="max-lg:mt-24 max-lg:!h-[260px] max-lg:!w-[370px] max-lg:rotate-90"
             />
+            <div className="absolute top-0 left-full">
+              <Info
+                size={38}
+                className="text-[#FFC107] -mt-2"
+                onClick={openModal}
+              />
+              <Modal3 isOpen={isModalOpen} onClose={closeModal} />
+            </div>
           </div>
         </div>
       </div>

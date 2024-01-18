@@ -22,8 +22,20 @@ import Video from "./video";
 import { useNumberStore } from "../hooks/useNumber";
 import { PoppulationParRegion } from "./apis/PoppulationParRegion.js";
 import { fetchDataCinemaForRegion } from "./apis/fetchDataCinemaForRegion.js";
+import { Info } from "lucide-react";
+import Modal2 from "./Modal2.jsx";
 
 const SecondData = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const { hasSecondAnimationPlayed, setHasSecondAnimationPlayed } =
     useNumberStore();
   const [calculateAverage, setCalculateAverage] = useState(false);
@@ -149,7 +161,7 @@ const SecondData = () => {
       {!hasSecondAnimationPlayed && <Video />}
       <div className="flex items-center h-full max-lg:items-center max-lg:flex-col-reverse max-lg:mt-12 lg:w-[80vw]">
         <div className="flex flex-col items-center mt-[30px] gap-[75px] justify-center">
-          <div className="lg:!h-[453px] lg:!w-[500px] !h-[280px] !w-[280px] -mt-8">
+          <div className="lg:!h-[453px] lg:!w-[500px] !h-[280px] !w-[280px] -mt-8 relative">
             {chartData.datasets && chartData.datasets.length > 0 && (
               <Bar
                 data={chartData}
@@ -157,6 +169,14 @@ const SecondData = () => {
                 className="!h-full !w-full"
               />
             )}
+            <div className="absolute top-0 left-[102%]">
+              <Info
+                size={38}
+                className="text-[#FFC107] -mt-2"
+                onClick={openModal}
+              />
+              <Modal2 isOpen={isModalOpen} onClose={closeModal} />
+            </div>
           </div>
           <div className="">
             <input

@@ -4,9 +4,21 @@ import { useNumberStore } from "../hooks/useNumber";
 import { useEffect, useState } from "react";
 import { DataCinemaPourcentagePerRegion } from "./apis/fetchDataCinemaPourcentageRegion";
 import { getChartLabelPlugin } from "chart.js-plugin-labels-dv";
+import { Info } from "lucide-react";
+import Modal from "./Modal";
 ChartJS.register(getChartLabelPlugin(), Legend);
 
 const FirstData = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const { hasAnimationPlayed, setHasAnimationPlayed } = useNumberStore();
 
   const preventWheelScroll = (e) => {
@@ -179,12 +191,20 @@ const FirstData = () => {
     <>
       <div className="flex items-center h-full max-lg:items-center max-lg:flex-col-reverse max-lg:mt-12 lg:w-[80vw]">
         <div className="flex flex-col items-center mt-[36px] gap-[75px] justify-center">
-          <div className="lg:!h-full lg:!w-[500px] !h-auto -mt-8 max-lg:w-full max-lg:flex justify-center">
+          <div className="lg:!h-full lg:!w-[500px] !h-auto -mt-8 max-lg:w-full max-lg:flex justify-center lg:flex relative">
             <Pie
               data={datasets}
               options={options}
               className="max-lg:!w-[320px] max-lg:!h-[320px]"
             />
+            <div className="absolute top-[5%] left-[84%]">
+              <Info
+                size={38}
+                className="text-[#FFC107] -mt-2"
+                onClick={openModal}
+              />
+              <Modal isOpen={isModalOpen} onClose={closeModal} />
+            </div>
           </div>
           <div className="grid grid-cols-2 grid-rows-2 -mt-8 gap-4">
             <button

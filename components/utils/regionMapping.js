@@ -1,7 +1,7 @@
 // Définition de l'objet de mappage
 const regionMapping = {
   "Auvergne-Rhône-Alpes": "AUVERGNE-RHONE-ALPES",
-  "BOURGOGNE-FRANCHE-COMTE": "Bourgeogne-Franche-Comté",
+  "BOURGOGNE-FRANCHE-COMTE": "Bourgogne-Franche-Comté",
   "ILE-DE-FRANCE": "Île-de-France",
   BRETAGNE: "Bretagne",
   "CENTRE-VAL DE LOIRE": "Centre-Val de Loire",
