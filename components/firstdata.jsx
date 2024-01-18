@@ -201,7 +201,7 @@ const FirstData = () => {
               options={options}
               className="max-lg:!w-[320px] max-lg:!h-[320px]"
             />
-            <div className="absolute top-[5%] left-[84%]">
+            <div className="absolute top-[5%] left-[95%]">
               <Info
                 size={38}
                 className="text-[#FFC107] -mt-2"
