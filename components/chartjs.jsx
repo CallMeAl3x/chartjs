@@ -55,7 +55,9 @@ const ChartJS = () => {
 
   return (
     <>
-      <Download />
+      {currentNumber === 1 && <Download />}
+      {(currentNumber === 2 && hasSecondAnimationPlayed && <Download />) ||
+        (currentNumber === 3 && hasThirdAnimationPlayed && <Download />)}
       <Navigation />
       <div
         onWheel={handleWheel}
