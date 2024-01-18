@@ -6,6 +6,10 @@ import { DataCinemaPourcentagePerRegion } from "./apis/fetchDataCinemaPourcentag
 import { getChartLabelPlugin } from "chart.js-plugin-labels-dv";
 import { Info } from "lucide-react";
 import Modal from "./Modal";
+import France from "../public/france.svg";
+import Americain from "../public/americain.svg";
+import Europens from "../public/europe.svg";
+import Others from "../public/others.svg";
 ChartJS.register(getChartLabelPlugin(), Legend);
 
 const FirstData = () => {
@@ -206,35 +210,39 @@ const FirstData = () => {
               <Modal isOpen={isModalOpen} onClose={closeModal} />
             </div>
           </div>
-          <div className="grid grid-cols-2 grid-rows-2 -mt-8 gap-4">
-            <button
-              onClick={handlefilmFR}
+          <div className="flex gap-4">
+            <img
+              src={France}
+              alt=""
               className={`${
                 filmFR ? "bg-[#00FF47]" : "bg-red-500"
-              } p-1 rounded-xl`}>
-              Films français
-            </button>
-            <button
-              onClick={handlefilmA}
+              } p-1 rounded-xl h-14 w-14`}
+              onClick={handlefilmFR}
+            />
+            <img
+              src={Americain}
+              alt=""
               className={`${
                 filmA ? "bg-[#00FF47]" : "bg-red-500"
-              } p-1 rounded-xl`}>
-              Films américains
-            </button>
-            <button
-              onClick={handlefilmE}
+              } p-1 rounded-xl h-14 w-14`}
+              onClick={handlefilmA}
+            />
+            <img
+              src={Europens}
+              alt=""
               className={`${
                 filmE ? "bg-[#00FF47]" : "bg-red-500"
-              } p-1 rounded-xl`}>
-              Films européens
-            </button>
-            <button
-              onClick={handlefilmOther}
+              } p-1 rounded-xl h-14 w-14`}
+              onClick={handlefilmE}
+            />
+            <img
+              src={Others}
+              alt=""
               className={`${
                 filmOther ? "bg-[#00FF47]" : "bg-red-500"
-              } p-1 rounded-xl`}>
-              Autres films
-            </button>
+              } p-1 rounded-xl h-14 w-14`}
+              onClick={handlefilmOther}
+            />
           </div>
         </div>
         <div

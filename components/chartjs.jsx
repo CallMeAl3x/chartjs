@@ -3,6 +3,7 @@ import FirstData from "./firstdata";
 import SecondData from "./seconddata";
 import { useNumberStore } from "../hooks/useNumber";
 import Thirddata from "./thirddata";
+import Download from "./download";
 
 const ChartJS = () => {
   const { currentNumber, setCurrentNumber } = useNumberStore();
@@ -54,6 +55,7 @@ const ChartJS = () => {
 
   return (
     <>
+      <Download />
       <Navigation />
       <div
         onWheel={handleWheel}

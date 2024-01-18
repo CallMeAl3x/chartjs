@@ -24,8 +24,8 @@ const Modal = ({ isOpen, onClose }) => {
             Sur cette page, vous verrez un graphique en forme de donut qui
             illustre le nombre moyen de films français par rapport au total des
             films projetés dans les cinémas de la région que vous avez
-            sélectionnée. Chaque segment du donut représente une proportion des
-            films français dans cette région
+            sélectionnée. Si vous séléctionner plus de 2 régions celà vas
+            comparer les 2 régions (ou plus).
           </p>
         </div>
       </div>
