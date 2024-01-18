@@ -26,7 +26,7 @@ const Navigation = () => {
   return (
     <>
       <div
-        className="lg:absolute lg:-translate-x-1/2 lg:-translate-y-1/2 top-[50.5%] left-[90.4%]"
+        className="lg:absolute lg:-translate-x-1/2 lg:-translate-y-1/2 top-[50.5%] left-[5.8%]"
         onWheel={handleWheel}>
         <div className="flex justify-center max-lg:mt-6 lg:justify-between items-center flex-col max-lg:gap-x-3 lg:gap-y-6 max-lg:flex-row">
           <div className="buttons">

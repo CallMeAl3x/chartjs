@@ -6,7 +6,11 @@ import Thirddata from "./thirddata";
 
 const ChartJS = () => {
   const { currentNumber, setCurrentNumber } = useNumberStore();
-  const { hasAnimationPlayed, hasSecondAnimationPlayed } = useNumberStore();
+  const {
+    hasAnimationPlayed,
+    hasSecondAnimationPlayed,
+    hasThirdAnimationPlayed,
+  } = useNumberStore();
 
   const handlePreviousClick = () => {
     if (currentNumber > 1) {
@@ -15,24 +19,34 @@ const ChartJS = () => {
   };
 
   const handleNextClick = () => {
-    if (currentNumber < 2 || (currentNumber === 2 && hasAnimationPlayed)) {
+    if (
+      currentNumber < 2 ||
+      (currentNumber === 2 && hasSecondAnimationPlayed)
+    ) {
       setCurrentNumber(currentNumber + 1);
     }
   };
 
   const handleWheel = (event) => {
     if (event.deltaY < 0) {
-      // Empêche le défilement vers le haut si l'utilisateur est sur SecondData et que l'animation n'est pas terminée
+      // Permet le défilement vers le haut si l'animation sur la page actuelle est terminée
       if (
         !(
-          (currentNumber === 2 && !hasAnimationPlayed) ||
-          (currentNumber === 3 && !hasSecondAnimationPlayed)
+          (currentNumber === 1 && !hasAnimationPlayed) ||
+          (currentNumber === 2 && !hasSecondAnimationPlayed) ||
+          (currentNumber === 3 && !hasThirdAnimationPlayed)
         )
       ) {
         handlePreviousClick();
       }
     } else if (event.deltaY > 0) {
-      if (currentNumber < 2 || (currentNumber === 2 && hasAnimationPlayed)) {
+      // Gère le défilement vers le bas
+      if (
+        currentNumber < 2 ||
+        (currentNumber === 2 && hasSecondAnimationPlayed)
+      ) {
+        handleNextClick();
+      } else if (currentNumber === 3 && hasThirdAnimationPlayed) {
         handleNextClick();
       }
     }
@@ -43,7 +57,7 @@ const ChartJS = () => {
       <Navigation />
       <div
         onWheel={handleWheel}
-        className="lg:absolute lg:-translate-x-1/2 lg:-translate-y-1/2 top-[50.5%] left-[50.4%] lg:h-[54vh] lg:min-w-[66vw] text-2xl">
+        className="lg:absolute lg:-translate-x-1/2 lg:-translate-y-1/2 top-[50.5%] left-[50.4%] lg:h-[54vh] lg:min-w-[66vw] text-2xl flex justify-evenly">
         {currentNumber === 1 && <FirstData />}
 
         {currentNumber === 2 && <SecondData />}

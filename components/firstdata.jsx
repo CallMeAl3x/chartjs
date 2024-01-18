@@ -4,23 +4,22 @@ import { useNumberStore } from "../hooks/useNumber";
 import { useEffect, useState } from "react";
 import { DataCinemaPourcentagePerRegion } from "./apis/fetchDataCinemaPourcentageRegion";
 import { getChartLabelPlugin } from "chart.js-plugin-labels-dv";
-ChartJS.register(getChartLabelPlugin());
+ChartJS.register(getChartLabelPlugin(), Legend);
 
 const FirstData = () => {
-  const { hasSecondAnimationPlayed, setHasSecondAnimationPlayed } =
-    useNumberStore();
+  const { hasAnimationPlayed, setHasAnimationPlayed } = useNumberStore();
 
   const preventWheelScroll = (e) => {
     e.preventDefault();
   };
 
   useEffect(() => {
-    if (!hasSecondAnimationPlayed) {
+    if (!hasAnimationPlayed) {
       // Ajouter l'écouteur d'événements pour bloquer le défilement de la molette
       window.addEventListener("wheel", preventWheelScroll, { passive: false });
 
       const timer = setTimeout(() => {
-        setHasSecondAnimationPlayed(true); // Marquez que l'animation a été jouée après 5 secondes
+        setHasAnimationPlayed(true); // Marquez que l'animation a été jouée après 5 secondes
         // Supprimer l'écouteur d'événements après 5 secondes
         window.removeEventListener("wheel", preventWheelScroll);
       }, 5000);
@@ -30,17 +29,17 @@ const FirstData = () => {
         window.removeEventListener("wheel", preventWheelScroll);
       };
     }
-  }, [hasSecondAnimationPlayed, setHasSecondAnimationPlayed]);
+  }, [hasAnimationPlayed, setHasAnimationPlayed]);
 
   useEffect(() => {
-    if (!hasSecondAnimationPlayed) {
+    if (!hasAnimationPlayed) {
       const timer = setTimeout(() => {
-        setHasSecondAnimationPlayed(true); // Marquez que l'animation a été jouée après 5 secondes
+        setHasAnimationPlayed(true); // Marquez que l'animation a été jouée après 5 secondes
       }, 5000);
 
       return () => clearTimeout(timer); // Nettoyer le timer si le composant est démonté
     }
-  }, [hasSecondAnimationPlayed, setHasSecondAnimationPlayed]);
+  }, [hasAnimationPlayed, setHasAnimationPlayed]);
 
   const [filmFR, setFilmFR] = useState(true);
   const [filmA, setfilmA] = useState(false);
@@ -157,52 +156,70 @@ const FirstData = () => {
     plugins: {
       labels: {
         render: "percentage",
-        fontColor: ["green", "red"],
+        fontColor: "black",
         precision: 2,
+        fontSize: 16,
+      },
+      datalabels: {
+        color: "black",
+        font: {
+          size: 22,
+        },
+      },
+      legend: {
+        display: true,
+        labels: {
+          fontSize: 24,
+          fontColor: "rgb(255, 99, 132)",
+        },
       },
     },
   };
   return (
     <>
-      <div className="flex items-center h-full max-lg:items-center max-lg:flex-col-reverse max-lg:mt-12">
-        <div className="flex flex-col items-center mt-[100px] gap-[75px]">
-          <div className="lg:!h-[250px] lg:!w-[400px] !h-[250px] !w-[500px] -mt-8">
-            <Pie data={datasets} options={options} className="!h-fit !w-fit" />
+      <div className="flex items-center h-full max-lg:items-center max-lg:flex-col-reverse max-lg:mt-12 lg:w-[80vw]">
+        <div className="flex flex-col items-center mt-[36px] gap-[75px] justify-center">
+          <div className="lg:!h-full lg:!w-[500px] !h-auto -mt-8 max-lg:w-full max-lg:flex justify-center">
+            <Pie
+              data={datasets}
+              options={options}
+              className="max-lg:!w-[320px] max-lg:!h-[320px]"
+            />
           </div>
-            <div className="mt-6">
-              <button
-                onClick={handlefilmFR}
-                className={`${
-                  filmFR ? "bg-[#00FF47]" : "bg-red-500"
-                } p-1 rounded-xl`}>
-                Films français
-              </button>
-              <button
-                onClick={handlefilmA}
-                className={`${
-                  filmA ? "bg-[#00FF47]" : "bg-red-500"
-                } p-1 rounded-xl`}>
-                Films américains
-              </button>
-              <button
-                onClick={handlefilmE}
-                className={`${
-                  filmE ? "bg-[#00FF47]" : "bg-red-500"
-                } p-1 rounded-xl`}>
-                Films européens
-              </button>
-              <button
-                onClick={handlefilmOther}
-                className={`${
-                  filmOther ? "bg-[#00FF47]" : "bg-red-500"
-                } p-1 rounded-xl`}>
-                Autres films
-              </button>
-            </div>
+          <div className="grid grid-cols-2 grid-rows-2 -mt-8 gap-4">
+            <button
+              onClick={handlefilmFR}
+              className={`${
+                filmFR ? "bg-[#00FF47]" : "bg-red-500"
+              } p-1 rounded-xl`}>
+              Films français
+            </button>
+            <button
+              onClick={handlefilmA}
+              className={`${
+                filmA ? "bg-[#00FF47]" : "bg-red-500"
+              } p-1 rounded-xl`}>
+              Films américains
+            </button>
+            <button
+              onClick={handlefilmE}
+              className={`${
+                filmE ? "bg-[#00FF47]" : "bg-red-500"
+              } p-1 rounded-xl`}>
+              Films européens
+            </button>
+            <button
+              onClick={handlefilmOther}
+              className={`${
+                filmOther ? "bg-[#00FF47]" : "bg-red-500"
+              } p-1 rounded-xl`}>
+              Autres films
+            </button>
+          </div>
         </div>
         <div
           id="conteneur"
-          className="w-[40%] min-w-[90%] lg:min-w-[375px] lg:m-auto max-w-[375px] max-lg:!w-fit max-lg:max-w-none">
+          className="w-[80vw] lg:w-[40%] lg:min-w-[375px] lg:m-auto max-lg:max-w-none">
           <div id="imgg" className="max-lg:flex max-lg:items-center relative">
             <img src="/carte-france.svg" draggable={false} />
             <a

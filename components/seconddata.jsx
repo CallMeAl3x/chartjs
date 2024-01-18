@@ -24,7 +24,8 @@ import { PoppulationParRegion } from "./apis/PoppulationParRegion.js";
 import { fetchDataCinemaForRegion } from "./apis/fetchDataCinemaForRegion.js";
 
 const SecondData = () => {
-  const { hasAnimationPlayed, setHasAnimationPlayed } = useNumberStore();
+  const { hasSecondAnimationPlayed, setHasSecondAnimationPlayed } =
+    useNumberStore();
   const [calculateAverage, setCalculateAverage] = useState(false);
 
   const preventWheelScroll = (e) => {
@@ -32,22 +33,22 @@ const SecondData = () => {
   };
 
   useEffect(() => {
-    if (!hasAnimationPlayed) {
+    if (!hasSecondAnimationPlayed) {
       // Ajouter l'écouteur d'événements pour bloquer le défilement de la molette
       window.addEventListener("wheel", preventWheelScroll, { passive: false });
 
       const timer = setTimeout(() => {
-        setHasAnimationPlayed(true); // Marquez que l'animation a été jouée après 5 secondes
+        setHasSecondAnimationPlayed(true); // Marquez que l'animation a été jouée après 5 secondes
         // Supprimer l'écouteur d'événements après 5 secondes
         window.removeEventListener("wheel", preventWheelScroll);
-      }, 5000);
+      }, 5500);
 
       return () => {
         clearTimeout(timer); // Nettoyer le timer si le composant est démonté
         window.removeEventListener("wheel", preventWheelScroll);
       };
     }
-  }, [hasAnimationPlayed, setHasAnimationPlayed]);
+  }, [hasSecondAnimationPlayed, setHasSecondAnimationPlayed]);
 
   const [selectedRegions, setSelectedRegions] = useState([
     "OCCITANIE",
@@ -140,16 +141,21 @@ const SecondData = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    indexAxis: window.innerWidth < 600 ? "y" : "x", // 'y' pour un graphique vertical, 'x' pour horizontal
   };
 
   return (
     <>
-      {!hasAnimationPlayed && <Video />}
-      <div className="flex items-center h-full max-lg:items-center max-lg:flex-col-reverse max-lg:mt-12">
-        <div className="flex flex-col items-center">
-          <div className="lg:!h-[250px] lg:!w-[500px] !h-[160px] !w-[320px] !max-w-none max-lg:mt-12">
+      {!hasSecondAnimationPlayed && <Video />}
+      <div className="flex items-center h-full max-lg:items-center max-lg:flex-col-reverse max-lg:mt-12 lg:w-[80vw]">
+        <div className="flex flex-col items-center mt-[30px] gap-[75px] justify-center">
+          <div className="lg:!h-[453px] lg:!w-[500px] !h-[280px] !w-[280px] -mt-8">
             {chartData.datasets && chartData.datasets.length > 0 && (
-              <Bar data={chartData} options={options} id="moyenne" />
+              <Bar
+                data={chartData}
+                options={options}
+                className="!h-full !w-full"
+              />
             )}
           </div>
           <div className="">
@@ -158,12 +164,14 @@ const SecondData = () => {
               checked={calculateAverage}
               onChange={(e) => setCalculateAverage(e.target.checked)}
             />
-            <label>Calculer la moyenne d&apos;écrans par personne</label>
+            <label>
+              Calculer la moyenne de sièges par personne dans chaque région
+            </label>
           </div>
         </div>
         <div
           id="conteneur"
-          className="w-[40%] min-w-[90%] lg:min-w-[375px] lg:m-auto max-w-[375px] max-lg:!w-fit max-lg:max-w-none">
+          className="w-[80vw] lg:w-[40%] lg:min-w-[375px] lg:m-auto max-lg:max-w-none">
           <div id="imgg" className="max-lg:flex max-lg:items-center relative">
             <img src="/carte-france.svg" draggable={false} />
             <a
