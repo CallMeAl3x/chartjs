@@ -1,7 +1,9 @@
 import { useNumberStore } from "../hooks/useNumber";
-import logo from "/logo.svg";
-import france from "/france.svg";
 import Close from "/close.svg";
+import graph1 from "/graph1.png";
+import graph2 from "/graph2.png";
+import graph3 from "/graph3.png";
+import pdf from "/BONEFONS_CEDRONE_KOUMAGNANOU_Data.pdf";
 // eslint-disable-next-line react/prop-types
 const Graph1 = ({ isOpen, onClose }) => {
   const { currentNumber } = useNumberStore();
@@ -23,11 +25,45 @@ const Graph1 = ({ isOpen, onClose }) => {
         <button onClick={onClose}>
           <img src={Close} className="h-8 w-8" />
         </button>
-        {currentNumber === 1 && <img src={logo} alt="" className="h-24 w-24" />}
-        {currentNumber === 2 && (
-          <img src={france} alt="" className="h-24 w-24" />
+        {currentNumber === 1 && (
+          <div>
+            <img src={graph1} alt="" className="h-full w-full" />
+            <a
+              href={pdf}
+              type="file"
+              target="_blank"
+              download="Graphique 1"
+              rel="noreferrer">
+              <button>Télécharger tout les graphs en PDF</button>
+            </a>
+          </div>
         )}
-        {currentNumber === 3 && <img src={logo} alt="" className="h-24 w-24" />}
+        {currentNumber === 2 && (
+          <div>
+            <img src={graph2} alt="" className="h-full w-full" />
+            <a
+              href={pdf}
+              type="file"
+              target="_blank"
+              download="Graphique 1"
+              rel="noreferrer">
+              <button>Télécharger tout les graphs en PDF</button>
+            </a>
+          </div>
+        )}
+        {currentNumber === 3 && (
+          <div>
+            <img src={graph3} alt="" className="h-full w-full" />
+            <a
+              href={pdf}
+              type="file"
+              target="_blank"
+              download="Graphique 1"
+              rel="noreferrer">
+              <button>Télécharger tout les graphs en PDF</button>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
