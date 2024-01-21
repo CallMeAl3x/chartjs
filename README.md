@@ -1,5 +1,7 @@
 Il s'agit d'un travail scolaire pour ma deuxième année de BUT MMI (S3).
 
+Le site site permet d'avoir des statistiques diverses dans le thème du cinéma via des requêtes APIs. Le site est conçu principalement pour une utilisation sur ordinateurs.
+
 ## Table des matières
 
 - [Aperçu](#aperçu)
