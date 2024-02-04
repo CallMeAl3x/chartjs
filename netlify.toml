@@ -1,5 +1,5 @@
 [[redirects]]
-from = "datavisualisation-cinema.netlify.app*"
+from = "datavisualisation-cinema.netlify.app/*"
 to = "datavisualisation.bonefons.com/:splat"
 status = 301
 force = true
