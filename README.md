@@ -26,7 +26,7 @@ public (API) que vous nous choisissons.
 
 ### Liens
 
-- [URL du site en direct](https://datavisualisation-cinema.netlify.app)
+- [URL du site en direct](https://datavisualisation.bonefons.com/))
 
 
 ### Construit avec
